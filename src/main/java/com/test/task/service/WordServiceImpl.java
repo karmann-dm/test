@@ -16,4 +16,24 @@ public class WordServiceImpl implements WordService {
     public List<Word> findAll() {
         return wordRepository.findAll();
     }
+
+    @Override
+    public void addWord(Word word) {
+        wordRepository.save(word);
+    }
+
+    @Override
+    public void addWords(List<Word> words) {
+        wordRepository.saveAll(words);
+    }
+
+    @Override
+    public void removeWord(Word word) {
+        wordRepository.delete(word);
+    }
+
+    @Override
+    public long count() {
+        return wordRepository.count();
+    }
 }

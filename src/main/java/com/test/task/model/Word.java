@@ -17,9 +17,8 @@ public class Word {
     public Word() {
     }
 
-    public Word(Long id, String reversedWord) {
-        this.id = id;
-        this.reversedWord = reversedWord;
+    public Word(String word) {
+        this.reversedWord = new StringBuilder(word).reverse().toString();
     }
 
     public Long getId() {
