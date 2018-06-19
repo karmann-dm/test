@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reverse string</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.css}">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <h1>Reverse your string!</h1>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/3.1.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+<script th:src="@{/webjars/sockjs-client/1.0.2/sockjs.js}"></script>
+<script th:src="@{/webjars/stomp-websocket/2.3.3/stomp.js}"></script>
+
+<script>
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/reverse-string');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log("Connected: " + frame);
+            stompClient.subscribe('/tr', function (hello) {
+                console.log(hello);
+            });
+        });
+    }
+
+    $(function () {
+        connect();
+    });
+</script>
+
+</body>
+</html>
