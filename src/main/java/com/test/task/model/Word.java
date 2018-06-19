@@ -14,8 +14,7 @@ public class Word {
     @Column(name = "reversed_word")
     private String reversedWord;
 
-    public Word() {
-    }
+    public Word() {}
 
     public Word(String word) {
         this.reversedWord = new StringBuilder(word).reverse().toString();
@@ -35,5 +34,10 @@ public class Word {
 
     public void setReversedWord(String reversedWord) {
         this.reversedWord = reversedWord;
+    }
+
+    @Override
+    public String toString() {
+        return "Word [id = " + id + ", reversed = " + reversedWord + "]";
     }
 }
