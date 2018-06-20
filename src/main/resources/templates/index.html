@@ -11,6 +11,23 @@
 <div class="container">
     <div class="row">
         <h1>Reverse your string!</h1>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Type your string
+                </div>
+                <div class="panel-body">
+                    <div style="display: flex; flex-direction: row">
+                        <input class="form-control" id="string-input" type="text" style="margin-right: 10px;">
+                        <button class="btn btn-success" id="send-button">Send</button>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    Summary
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -23,17 +40,26 @@
     var stompClient = null;
 
     function connect() {
-        var socket = new SockJS('/reverse-string');
+        var socket = new SockJS('http://localhost:8080/reverse');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
-            console.log("Connected: " + frame);
-            stompClient.subscribe('/tr', function (hello) {
+            stompClient.subscribe('/topic/tr', function (hello) {
                 console.log(hello);
             });
         });
     }
 
-    $(function () {
+    function formTable(data) {
+
+    }
+
+    $('#send-button').on('click', function () {
+        stompClient.send("/app/reverse-string", {}, JSON.stringify({
+            string: $('#string-input').val()
+        }));
+    });
+
+    $(document).ready(function () {
         connect();
     });
 </script>
