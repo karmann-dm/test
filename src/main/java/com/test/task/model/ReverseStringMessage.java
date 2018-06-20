@@ -1,13 +1,22 @@
 package com.test.task.model;
 
-public class ReverseStringMessage {
-    private String string;
+import java.util.List;
 
-    public String getString() {
-        return string;
+public class ReverseStringMessage {
+    private List<Word> words;
+
+    public ReverseStringMessage() {
     }
 
-    public void setString(String string) {
-        this.string = string;
+    public ReverseStringMessage(List<Word> words) {
+        this.words = words;
+    }
+
+    public List<Word> getStrings() {
+        return words;
+    }
+
+    public void setStrings(List<Word> words) {
+        this.words = words;
     }
 }
