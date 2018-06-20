@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Word service layer implementation.
+ * @author Dmitry Karmanov
+ * @version 1.0
+ */
 @Service
 public class WordServiceImpl implements WordService {
     @Autowired

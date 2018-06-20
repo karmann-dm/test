@@ -2,6 +2,11 @@ package com.test.task.model;
 
 import java.util.List;
 
+/**
+ * DTO reverse strings message.
+ * @author Dmitry Karmanov
+ * @version 1.0
+ */
 public class ReverseStringMessage {
     private List<Word> words;
 

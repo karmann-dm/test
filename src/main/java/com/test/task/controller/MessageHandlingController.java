@@ -9,11 +9,22 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+/**
+ * Websocket message handling controller.
+ * @author Dmitry Karmanov
+ * @version 1.0
+ */
 @Controller
 public class MessageHandlingController {
     @Autowired
-    WordService wordService;
+    private WordService wordService;
 
+    /**
+     * Message mapper to reverse input string.
+     * @param message {@link InputMessage} Input message containing string.
+     * @return ReverseStringMessage Message with list of reversed strings.
+     * @throws Exception If adding a word went with an error.
+     */
     @MessageMapping("/reverse-string")
     @SendTo("/topic/tr")
     public ReverseStringMessage greeting(InputMessage message) throws Exception {
