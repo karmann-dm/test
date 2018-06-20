@@ -1,5 +1,10 @@
 package com.test.task.model;
 
+/**
+ * DTO Input message class.
+ * @author Dmitry Karmanov
+ * @version 1.0
+ */
 public class InputMessage {
     private String string;
 

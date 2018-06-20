@@ -11,11 +11,14 @@
 <div class="container">
     <div class="row">
         <h1>Reverse your string!</h1>
-
+        <hr>
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Type your string
+                    <div style="display: flex; flex-direction: row; justify-content: space-between">
+                        <div>Type your string</div>
+                        <div id="status"></div>
+                    </div>
                 </div>
                 <div class="panel-body">
                     <div style="display: flex; flex-direction: row">
@@ -24,7 +27,10 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    Summary
+                    <h3>Summary</h3>
+                    <table class="table table-striped">
+                        <tbody id="summary-table"></tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -38,25 +44,43 @@
 
 <script>
     var stompClient = null;
+    var connectedStatus = false;
 
     function connect() {
         var socket = new SockJS('http://localhost:8080/reverse');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
+            changeStatus(true);
             stompClient.subscribe('/topic/tr', function (hello) {
-                console.log(hello);
+                formTable(JSON.parse(hello.body));
             });
+        }, function (error, client) {
+            if (error) {
+                changeStatus(false);
+            }
         });
     }
 
-    function formTable(data) {
+    function changeStatus(connected) {
+        connectedStatus = connected;
+        if(connected === true)
+            $('#status').html('Connected!');
+        else
+            $('#status').html('Disconnected :(')
+    }
 
+    function formTable(data) {
+        $('#summary-table').empty();
+        for(element in data.strings) {
+            $('#summary-table').append('<tr><td>' + data.strings[element].reversedWord) + '</td></tr>';
+        }
     }
 
     $('#send-button').on('click', function () {
         stompClient.send("/app/reverse-string", {}, JSON.stringify({
             string: $('#string-input').val()
         }));
+        $('#string-input').val('');
     });
 
     $(document).ready(function () {
