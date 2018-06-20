@@ -80,6 +80,7 @@
         stompClient.send("/app/reverse-string", {}, JSON.stringify({
             string: $('#string-input').val()
         }));
+        $('#string-input').val('');
     });
 
     $(document).ready(function () {
